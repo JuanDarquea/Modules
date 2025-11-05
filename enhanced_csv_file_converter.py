@@ -2,6 +2,7 @@ import pandas as pd
 import os
 from tkinter import filedialog
 from tkinter import Tk
+import sys
 
 def convert_csv_to_xlsx(csv_path):
     """
@@ -25,8 +26,8 @@ def convert_csv_to_xlsx(csv_path):
         df.to_excel(output_path, index=False)
 
         print("File successfully converted")
-        print(f"Input file = {csv_path}")
-        print(f"Output file = {output_path}")
+        print(f"\nInput file = {csv_path}")
+        print(f"Output file = {output_path}\n")
         return output_path
     
     except Exception as e:
@@ -55,10 +56,15 @@ def select_csv_file():
 
 def main():
     """Main execution function"""
-    print("Please select a CSV file to convert to excel.")
-
-    # Get filepath from dialog
-    csv_path = select_csv_file()
+    # Check if file path was provided in command line argument
+    if len(sys.argv) > 1:
+        csv_path = sys.argv[1]
+        print(f"Processing {csv_path}")
+    else:
+        # No argument found in command line
+        print("Please select a CSV file to convert to excel...")
+        # Get filepath from dialog
+        csv_path = select_csv_file()
 
     if csv_path:
         print("\nSelected file: {csv_path}")
