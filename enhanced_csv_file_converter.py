@@ -19,14 +19,14 @@ def convert_csv_to_xlsx(csv_path):
         file_dir = os.path.dirname(csv_path)
         file_name = os.path.splitext(os.path.basename(csv_path))[0]
 
-        # Crate output path with xlsx extension
+        # Create output path with xlsx extension
         output_path = os.path.join(file_dir, f"{file_name}.xlsx")
 
         # Convert to excel
         df.to_excel(output_path, index=False)
 
-        print("File successfully converted")
-        print(f"\nInput file = {csv_path}")
+        print("\nFile successfully converted")
+        print(f"Input file = {csv_path}")
         print(f"Output file = {output_path}\n")
         return output_path
     
@@ -59,7 +59,11 @@ def main():
     # Check if file path was provided in command line argument
     if len(sys.argv) > 1:
         csv_path = sys.argv[1]
-        print(f"Processing {csv_path}")
+        # Get the filename without extension
+        file_dir = os.path.dirname(csv_path)
+        file_name = os.path.splitext(os.path.basename(csv_path))[0]
+        print(f"Selected file: {file_name}", 
+              f"\nIn directory: {file_dir}")
     else:
         # No argument found in command line
         print("Please select a CSV file to convert to excel...")
@@ -67,7 +71,7 @@ def main():
         csv_path = select_csv_file()
 
     if csv_path:
-        print("\nSelected file: {csv_path}")
+        print(f"\nConverting selected file: {csv_path}")
         convert_csv_to_xlsx(csv_path)
     else:
         print("No file selected. Exiting!")

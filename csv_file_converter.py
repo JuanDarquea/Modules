@@ -18,19 +18,19 @@ def convert_csv_to_xlsx(csv_path):
         file_dir = os.path.dirname(csv_path)
         file_name = os.path.splitext(os.path.basename(csv_path))[0]
 
-        # Crate output path with xlsx extension
+        # Create output path with xlsx extension
         output_path = os.path.join(file_dir, f"{file_name}.xlsx")
 
         # Convert to excel
         df.to_excel(output_path, index=False)
 
-        print("File successfully converted")
+        print("\nFile successfully converted")
         print(f"Input file = {csv_path}")
-        print(f"Output file = {output_path}")
+        print(f"Output file = {output_path}\n")
         return output_path
     
     except Exception as e:
-        print(f"Erro: e")
+        print(f"Error: {e}")
         return None
     
 def select_csv_file():
@@ -60,8 +60,13 @@ def main():
     # Get filepath from dialog
     csv_path = select_csv_file()
 
+    # Get the filename without extension
+    file_dir = os.path.dirname(csv_path)
+    file_name = os.path.splitext(os.path.basename(csv_path))[0]
+
     if csv_path:
-        print("\nSelected file: {csv_path}")
+        print(f"\nSelected file: {file_name}",
+              f"\nFrom directory: {file_dir}")
         convert_csv_to_xlsx(csv_path)
     else:
         print("No file selected. Exiting!")
